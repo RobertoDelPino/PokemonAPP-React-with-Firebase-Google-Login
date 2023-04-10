@@ -1,9 +1,9 @@
-import { pokemonRepository } from "../../infrastructure/repositories/pokemon.repository"
+import { pokemonApi } from "../../infrastructure/api/pokemon.api"
 import { Pokemon } from "../models/Pokemon";
 
 export const pokemonService = {
     getPokemon: async (): Promise<Pokemon[]> => {
-        const pokemonList: Pokemon[] = await pokemonRepository.getPokemonList()
+        const pokemonList: Pokemon[] = await pokemonApi.getPokemonList()
         return pokemonList;
     }
 }

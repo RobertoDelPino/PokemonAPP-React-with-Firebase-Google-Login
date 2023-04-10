@@ -1,4 +1,4 @@
-import { pokemonRepository } from "../../infrastructure/repositories/pokemon.repository"
+import { pokemonApi } from "../../infrastructure/api/pokemon.api"
 import { Pokemon } from "../models/Pokemon"
 import { pokemonService } from "./pokemon.service"
 
@@ -11,7 +11,7 @@ describe('getPokemonList should', () => {
             pokemonListResult.push(new Pokemon(1,"algo", 1,1, ""))
         }
 
-        pokemonRepository.getPokemonList = jest.fn().mockReturnValue(pokemonListResult) 
+        pokemonApi.getPokemonList = jest.fn().mockReturnValue(pokemonListResult) 
 
         const pokemonList = await pokemonService.getPokemon()
         expect(pokemonList.length).toBe(20)

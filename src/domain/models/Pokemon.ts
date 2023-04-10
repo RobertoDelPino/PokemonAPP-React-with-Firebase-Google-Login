@@ -13,4 +13,7 @@ export class Pokemon{
     height: number
     weight: number
     urlImage: string
+
+
+    // Las comprobaciones de si es un pokemon correcto deberían ir aquí
 }
