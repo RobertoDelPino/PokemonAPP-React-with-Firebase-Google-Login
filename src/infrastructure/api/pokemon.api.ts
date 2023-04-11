@@ -10,7 +10,7 @@ export const pokemonApi = {
         return data.PokemonList
     },
 
-    getPokemonById: (): Pokemon => {
+    getPokemonById: (id: number): Pokemon => {
         throw new Error("Not implemented yet")
     }
 }
