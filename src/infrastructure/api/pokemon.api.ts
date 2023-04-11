@@ -9,15 +9,17 @@ export const pokemonApi = {
         const url = pokemonApi.commonUrl;
         const response = await fetch(url);
         const data: PokemonListDTO = await response.json();
-        
-        return data.PokemonList
+        const pokemonList = data.PokemonList.map(({id, name, height, weight, urlImage}) => new Pokemon(id, name, height, weight, urlImage))
+
+
+        return pokemonList
     },
 
     getPokemonById: async (id: number): Promise<Pokemon> => {
         const url = pokemonApi.commonUrl + "/" + id;
         const response = await fetch(url)
         const data: PokemonByIdDTO = await response.json();
-        const pokemon = new Pokemon(Number(data.pokemon.id), data.pokemon.name, Number(data.pokemon.weight), Number(data.pokemon.height), data.pokemon.urlImage )
+        const pokemon = new Pokemon(Number(data.pokemon.id), data.pokemon.name, Number(data.pokemon.height), Number(data.pokemon.weight), data.pokemon.urlImage )
         return pokemon
     }
 }

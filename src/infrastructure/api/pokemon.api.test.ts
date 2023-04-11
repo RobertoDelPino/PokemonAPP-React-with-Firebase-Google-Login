@@ -6,6 +6,7 @@ describe("/GET getPokemonList should", () => {
     it("return a list of pokemon", async () => {
         const pokemonList = await pokemonApi.getPokemonList();
 
+        expect(pokemonList[0]).toBeInstanceOf(Pokemon)
         expect(pokemonList.length).toBe(20)
     })
 })
