@@ -10,11 +10,6 @@ export const FavoritesPokemonServices = {
         }
         return []
     },
-
-
-    findIndexPokemonInFavoriteList: (favoritePokemonList: Pokemon[], pokemon: Pokemon) => {
-        return favoritePokemonList.findIndex(({id}) => pokemon.id == id);
-    },
     /*
     *
     * Casos de uso ->
@@ -24,13 +19,25 @@ export const FavoritesPokemonServices = {
     setFavoritesPokemon: (pokemon: Pokemon) => {
         const favoritePokemonList: Pokemon[] = FavoritesPokemonServices.getFavoritesPokemon()
         const indexPokemon = FavoritesPokemonServices.findIndexPokemonInFavoriteList(favoritePokemonList, pokemon)
-        if(indexPokemon != -1){
-            favoritePokemonList.splice(indexPokemon, 1)
-            localStorage.setItem("favorites", JSON.stringify(favoritePokemonList))
+        if (indexPokemon != -1) {
+            FavoritesPokemonServices.deletePokemonFromFavoritePokemonList(favoritePokemonList, indexPokemon)
             return
         }
 
+        FavoritesPokemonServices.addPokemonToFavoritePokemonList(favoritePokemonList, pokemon)
+    },
+
+    findIndexPokemonInFavoriteList: (favoritePokemonList: Pokemon[], pokemon: Pokemon) => {
+        return favoritePokemonList.findIndex(({id}) => pokemon.id == id);
+    },
+
+    deletePokemonFromFavoritePokemonList: (favoritePokemonList: Pokemon[], indexPokemon: number) => {
+        favoritePokemonList.splice(indexPokemon, 1)
+        localStorage.setItem("favorites", JSON.stringify(favoritePokemonList))
+    },
+
+    addPokemonToFavoritePokemonList: (favoritePokemonList: Pokemon[], pokemon: Pokemon) => {
         favoritePokemonList.push(pokemon)
-        localStorage.setItem("favorites",JSON.stringify(favoritePokemonList))
+        localStorage.setItem("favorites", JSON.stringify(favoritePokemonList))
     }
 }
