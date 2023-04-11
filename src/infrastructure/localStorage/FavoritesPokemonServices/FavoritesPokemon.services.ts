@@ -11,6 +11,10 @@ export const FavoritesPokemonServices = {
         return []
     },
 
+
+    findIndexPokemonInFavoriteList: (favoritePokemonList: Pokemon[], pokemon: Pokemon) => {
+        return favoritePokemonList.findIndex(({id}) => pokemon.id == id);
+    },
     /*
     *
     * Casos de uso ->
@@ -18,15 +22,15 @@ export const FavoritesPokemonServices = {
     *   2. If pokemon is repeated, delete pokemon from the array --> Done
     */
     setFavoritesPokemon: (pokemon: Pokemon) => {
-        const pokemonList: Pokemon[] = FavoritesPokemonServices.getFavoritesPokemon()
-        const indexPokemon = pokemonList.findIndex(({id}) => pokemon.id == id);
+        const favoritePokemonList: Pokemon[] = FavoritesPokemonServices.getFavoritesPokemon()
+        const indexPokemon = FavoritesPokemonServices.findIndexPokemonInFavoriteList(favoritePokemonList, pokemon)
         if(indexPokemon != -1){
-            pokemonList.splice(indexPokemon, 1)
-            localStorage.setItem("favorites", JSON.stringify(pokemonList))
+            favoritePokemonList.splice(indexPokemon, 1)
+            localStorage.setItem("favorites", JSON.stringify(favoritePokemonList))
             return
         }
 
-        pokemonList.push(pokemon)
-        localStorage.setItem("favorites",JSON.stringify(pokemonList))
+        favoritePokemonList.push(pokemon)
+        localStorage.setItem("favorites",JSON.stringify(favoritePokemonList))
     }
 }
