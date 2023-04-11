@@ -13,7 +13,18 @@ describe('getPokemonList should', () => {
 
         pokemonApi.getPokemonList = jest.fn().mockReturnValue(pokemonListResult) 
 
-        const pokemonList = await pokemonService.getPokemon()
+        const pokemonList = await pokemonService.getPokemonList()
         expect(pokemonList.length).toBe(20)
+    })
+})
+
+describe('getPokemonById should', () => {
+    it('return a pokemon', async () => {
+
+        const expectedResult: Pokemon = new Pokemon(1, "3", 1,2,"algo")
+        pokemonApi.getPokemonById = jest.fn().mockReturnValue(expectedResult)
+
+        const pokemon = await pokemonService.getPokemonById(1)
+        expect(typeof pokemon).toBe("Pokemon")
     })
 })
