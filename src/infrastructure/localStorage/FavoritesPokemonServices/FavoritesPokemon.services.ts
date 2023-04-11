@@ -2,12 +2,6 @@ import {Pokemon} from "../../../domain/models/Pokemon";
 import {FavoritesPokemonDTO} from "../../DTO/FavoritesPokemonDTO";
 
 export const FavoritesPokemonServices = {
-    /*
-    *  Casos de uso ->
-    *   1. LocalStorage.getItem should be called 1
-    *   2. It returns a list of Pokemons when there is data on LS
-    *   3. It returns an empty list when no data is on LS
-    * */
     
     getFavoritesPokemon: (): Pokemon[] => {
         const data: FavoritesPokemonDTO[] = JSON.parse(localStorage.getItem("favorites") || "[]")
@@ -20,9 +14,8 @@ export const FavoritesPokemonServices = {
     /*
     *
     * Casos de uso ->
-    *   1. If pokemon is null or undefined throw error
-    *   2. If pokemon is not on the list, push pokemon to the array
-    *   3. If pokemon is repeated, delete pokemon from the array
+    *   1. If pokemon is not on the list, push pokemon to the array --> Done
+    *   2. If pokemon is repeated, delete pokemon from the array --> Done
     */
     setFavoritesPokemon: (pokemon: Pokemon) => {
         const pokemonList: Pokemon[] = FavoritesPokemonServices.getFavoritesPokemon()

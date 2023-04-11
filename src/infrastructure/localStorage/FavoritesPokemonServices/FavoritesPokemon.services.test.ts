@@ -43,3 +43,24 @@ describe(("setFavoritesPokemon should"), () => {
         expect(list.length).toBe(1)
     });
 })
+
+/*
+    *  Uses Cases ->
+    *   1. It returns a list of Pokemons when there is data on LS --> Done
+    *   2. It returns an empty list when no data is on LS --> Done
+*/
+
+describe("getFavoritesPokemon should", () => {
+    it('return a list of Pokemon', function () {
+        FavoritesPokemonServices.setFavoritesPokemon(new Pokemon(1, "", 2, 3, ""))
+
+        const pokemons = FavoritesPokemonServices.getFavoritesPokemon()
+        expect(pokemons.length).toBe(1)
+    });
+
+    it('return an empty null', function () {
+        const pokemons = FavoritesPokemonServices.getFavoritesPokemon()
+        expect(pokemons.length).toBe(0)
+    });
+})
+
