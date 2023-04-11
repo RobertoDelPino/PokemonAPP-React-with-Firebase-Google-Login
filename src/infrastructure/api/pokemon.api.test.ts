@@ -12,9 +12,9 @@ describe("/GET getPokemonList should", () => {
 
 describe("/GET getPokemonById should", () => {
     it("return a pokemon", async () => {
-        const pokemonList = await pokemonApi.getPokemonById(1);
+        const pokemon = await pokemonApi.getPokemonById(1);
 
-        expect(pokemonList).toBeTruthy()
-        expect(pokemonList).toBeInstanceOf(Pokemon)
+        expect(pokemon).toBeTruthy()
+        expect(pokemon).toBeInstanceOf(Pokemon)
     })
 })
