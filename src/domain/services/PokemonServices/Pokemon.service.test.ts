@@ -1,6 +1,6 @@
-import { pokemonApi } from "../../infrastructure/api/pokemon.api"
-import { Pokemon } from "../models/Pokemon"
-import { pokemonService } from "./pokemon.service"
+import { pokemonApi } from "../../../infrastructure/api/pokemon.api"
+import { Pokemon } from "../../models/Pokemon"
+import {pokemonService} from "./Pokemon.service";
 
 describe('getPokemonList should', () => {
     it('return a list of pokemons', async () => {

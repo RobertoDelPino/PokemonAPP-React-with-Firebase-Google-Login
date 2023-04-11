@@ -1,41 +1,41 @@
 import * as React from 'react'
-import { pokemonService } from '../../domain/services/pokemon.service'
+
 import { Pokemon } from '../../domain/models/Pokemon'
+import './pokemonList.css';
+import {pokemonService} from "../../domain/services/PokemonServices/Pokemon.service";
+import {useState} from "react";
 
-export const PokemonList: React.FC = () => {
+export const PokemonList: () => JSX.Element = () => {
 
+    const [isLoading, setIsLoading] = useState(true)
     const [pokemonList, setPokemonList] = React.useState<Pokemon[]>([])
 
     React.useEffect(() => {
         const fetchData = async () => {
             const data: Pokemon[] = await pokemonService.getPokemonList();
             setPokemonList( data )
+            setIsLoading(false)
+            console.log()
         }
         fetchData()
     }, [])
 
+    if(isLoading){
+        return <p>Cargando...</p>
+    }
 
-    
     return (
-        <table>
-            <thead>
-                <tr>
-                    <th><p style={{textAlign: "center"}}>Name</p></th>
-                    <th><p style={{textAlign: "center"}}>Weight</p></th>
-                    <th><p style={{textAlign: "center"}}>Height</p></th>
-                    <th><p style={{textAlign: "center"}}>Image</p></th>
-                </tr>
-            </thead>
-            <tbody >
-                {pokemonList.map((pokemon:Pokemon) => (
-                    <tr key={pokemon.id}>
-                        <td> <h4>{pokemon.name}</h4> </td>
-                        <td> <p style={{textAlign: "center"}}>{pokemon.weight}</p> </td>
-                        <td> <p style={{textAlign: "center"}}>{pokemon.height}</p> </td>
-                        <td> <img src={pokemon.urlImage} width={100} /> </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+
+        <section className="contenedor">
+            {pokemonList.map((pokemon: Pokemon) => (
+                <div key={pokemon.id}>
+                    <img src={pokemon.urlImage} width={100}/>
+                    <h2>{pokemon.name}</h2>
+                    <p>Peso: {pokemon.weight}</p>
+                    <p>Altura: {pokemon.height}</p>
+                    <button>Agregar a favoritos</button>{/*Esto debería de ser otro componente*/}
+                </div>
+            ))}
+        </section>
     )
 }

@@ -1,5 +1,5 @@
-import { pokemonApi } from "../../infrastructure/api/pokemon.api"
-import { Pokemon } from "../models/Pokemon";
+import { pokemonApi } from "../../../infrastructure/api/pokemon.api"
+import { Pokemon } from "../../models/Pokemon";
 
 export const pokemonService = {
     getPokemonList: async (): Promise<Pokemon[]> => {
@@ -8,7 +8,7 @@ export const pokemonService = {
     },
 
     getPokemonById: async (id: number): Promise<Pokemon> => {
-        const pokemon: Pokemon = await pokemonApi.getPokemonById()
+        const pokemon: Pokemon = await pokemonApi.getPokemonById(1)
         return pokemon
     }
 }

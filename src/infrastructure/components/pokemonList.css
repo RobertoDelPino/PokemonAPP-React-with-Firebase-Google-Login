@@ -1,0 +1,42 @@
+section.contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section.contenedor div{
+    position: relative;
+    width: 200px;
+    border: .1em solid black;
+    padding: .5em;
+    margin: .2em;
+    border-radius: 1em;
+    background-color: rgba(227, 227, 227, 0.55);
+}
+
+section.contenedor div:hover{
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
+section.contenedor div img{
+    width: 100%;
+    background-color: rgba(103, 231, 209, 0.47);
+    border-radius: .5em;
+}
+
+section.contenedor div h2{
+    text-align: center;
+    margin: .2em 0em;
+}
+
+section.contenedor div p{
+    display: none;
+}
+
+section.contenedor div button{
+    margin: .5em 0em;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor:pointer;
+}
