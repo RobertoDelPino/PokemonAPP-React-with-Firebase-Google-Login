@@ -19,7 +19,6 @@ export const FavoritesPokemonServices = {
     *   3. If pokemon is repeated, delete pokemon from the array
     */
     setFavoritesPokemon: (pokemon: Pokemon) => {
-        // localStorage.setItem("favorites",JSON.stringify(pokemon))
-        throw new Error("Not implemented yet")
+        localStorage.setItem("favorites",JSON.stringify(pokemon))
     }
 }
