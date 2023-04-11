@@ -24,7 +24,8 @@ describe('getPokemonById should', () => {
         const expectedResult: Pokemon = new Pokemon(1, "3", 1,2,"algo")
         pokemonApi.getPokemonById = jest.fn().mockReturnValue(expectedResult)
 
-        const pokemon = await pokemonService.getPokemonById(1)
-        expect(typeof pokemon).toBe("Pokemon")
+        const pokemon: Pokemon = await pokemonService.getPokemonById(1)
+        expect(pokemon).toBeInstanceOf(Pokemon)
+        expect(pokemon).toBeTruthy()
     })
 })
