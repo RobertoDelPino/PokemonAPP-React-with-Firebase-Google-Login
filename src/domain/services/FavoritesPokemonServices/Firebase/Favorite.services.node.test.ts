@@ -12,7 +12,7 @@ describe("SetFavoritesPokemon should", () => {
     })
 
     it('call deleteFrom() when pokemon is in the database', async function () {
-        const userId = "bla"
+        const userId = "irrelevant"
         const pokemon = new Pokemon(1, "", 1, 1, "")
 
         const favoriteService = new FavoriteServices()
@@ -26,7 +26,7 @@ describe("SetFavoritesPokemon should", () => {
     });
 
     it('call addTo() when pokemon is not in the database', async function () {
-        const userId = "bla"
+        const userId = "irrelevant"
         const pokemon = new Pokemon(1, "", 1, 1, "")
 
         const favoriteService = new FavoriteServices()
@@ -40,7 +40,7 @@ describe("SetFavoritesPokemon should", () => {
     });
 
     it('call addTo() when favorite list is empty', async function () {
-        const userId = "bla"
+        const userId = "irrelevant"
         const pokemon = new Pokemon(1, "", 1, 1, "")
 
         const favoriteService = new FavoriteServices()
@@ -53,5 +53,35 @@ describe("SetFavoritesPokemon should", () => {
     });
 })
 
+describe("findIndexPokemonInFavoriteList should", () => {
 
+    afterEach(() => {
+        jest.restoreAllMocks()
+    })
+
+    it('return -1 when pokemon not in the list', async function () {
+        const userId = "irrelevant"
+        const pokemon = new Pokemon(2, "", 1, 1, "")
+
+        const favoriteService = new FavoriteServices()
+        favoriteService.getFavorites = jest.fn().mockReturnValue([])
+
+        const index = favoriteService.findIndexPokemonInFavoriteList(await favoriteService.getFavorites(userId), pokemon)
+
+        expect(index).toBe(-1)
+    });
+
+    it('not return -1 when pokemon is in the database', async function () {
+        const userId = "irrelevant"
+        const pokemon = new Pokemon(2, "", 1, 1, "")
+
+        const favoriteService = new FavoriteServices()
+        favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
+
+        const index = favoriteService.findIndexPokemonInFavoriteList(await favoriteService.getFavorites(userId), pokemon)
+
+        expect(index).not.toBe(-1)
+    });
+
+})
 
