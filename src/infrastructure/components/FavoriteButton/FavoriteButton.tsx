@@ -37,7 +37,7 @@ export function FavoriteButton (props: { pokemon: Pokemon, userId: any}): JSX.El
     }, [])
 
     async function handleClick() {
-        await firebaseFavoritesPokemon.setFavoritesPokemon(userId, pokemon)
+        await firebaseFavoritesPokemon.updateFavoriteList(userId, pokemon)
         changeButtonProperties()
     }
 

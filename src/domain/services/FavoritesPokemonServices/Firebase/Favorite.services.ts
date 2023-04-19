@@ -17,7 +17,7 @@ export class FavoriteServices {
         return []
     }
 
-     async setFavoritesPokemon(userId: string, pokemon: Pokemon){
+     async updateFavoriteList(userId: string, pokemon: Pokemon){
         const favoritePokemonList: Pokemon[] = await this.getFavorites(userId)
 
         if(favoritePokemonList.length == 0){

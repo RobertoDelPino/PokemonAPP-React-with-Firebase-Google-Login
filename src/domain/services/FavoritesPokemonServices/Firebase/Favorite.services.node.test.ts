@@ -20,7 +20,7 @@ describe("SetFavoritesPokemon should", () => {
         favoriteService.findIndexPokemonInFavoriteList = jest.fn().mockReturnValue(1)
         favoriteService.deleteFrom = jest.fn()
 
-        await favoriteService.setFavoritesPokemon(userId, pokemon)
+        await favoriteService.updateFavoriteList(userId, pokemon)
 
         expect(favoriteService.deleteFrom).toHaveBeenCalled()
     });
@@ -34,7 +34,7 @@ describe("SetFavoritesPokemon should", () => {
         favoriteService.findIndexPokemonInFavoriteList = jest.fn().mockReturnValue(-1)
         favoriteService.addTo = jest.fn()
 
-        await favoriteService.setFavoritesPokemon(userId, pokemon)
+        await favoriteService.updateFavoriteList(userId, pokemon)
 
         expect(favoriteService.addTo).toHaveBeenCalled()
     });
@@ -47,7 +47,7 @@ describe("SetFavoritesPokemon should", () => {
         favoriteService.getFavorites = jest.fn().mockReturnValue([])
         favoriteService.addTo = jest.fn()
 
-        await favoriteService.setFavoritesPokemon(userId, pokemon)
+        await favoriteService.updateFavoriteList(userId, pokemon)
 
         expect(favoriteService.addTo).toHaveBeenCalled()
     });
