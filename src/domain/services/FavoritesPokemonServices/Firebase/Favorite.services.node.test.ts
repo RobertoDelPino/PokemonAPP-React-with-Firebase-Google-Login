@@ -85,3 +85,21 @@ describe("findIndexPokemonInFavoriteList should", () => {
 
 })
 
+describe("getFavorites should", () => {
+
+    afterEach(() => {
+        jest.restoreAllMocks()
+    })
+
+    it('return empty list when no pokemon in the database', async function () {
+        const userId = "irrelevant"
+
+        const favoriteService = new FavoriteServices()
+        favoriteService.FAVORITE_POKEMON_API.getFromDB = jest.fn().mockReturnValue([])
+
+        const favorites = await favoriteService.getFavorites(userId)
+
+        expect(favorites.length).toBe(0)
+    });
+})
+

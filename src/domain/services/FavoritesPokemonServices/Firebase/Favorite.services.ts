@@ -4,7 +4,7 @@ import {FavoritePokemonApi} from "../../../../infrastructure/api/Firebase/Favori
 
 export class FavoriteServices {
 
-    private FAVORITE_POKEMON_API = new FavoritePokemonApi()
+    FAVORITE_POKEMON_API = new FavoritePokemonApi()
 
      async getFavorites(userId: string): Promise<Pokemon[]>{
 
