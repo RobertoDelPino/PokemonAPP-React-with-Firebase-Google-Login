@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as firebase from "../../api/Firebase/Login.api"
 import {useEffect, useState} from "react";
 import {Pokemon} from "../../../domain/models/Pokemon";
-import {FavoritePokemon} from "../../api/Firebase/FavoritePokemon";
+import {FavoritePokemonApi} from "../../api/Firebase/FavoritePokemon.api";
 
 export function FavoritePage ({userId}): JSX.Element{
 
@@ -10,7 +10,7 @@ export function FavoritePage ({userId}): JSX.Element{
 
     useEffect(() => {
         const fetchData = async () => {
-            const firebase = new FavoritePokemon()
+            const firebase = new FavoritePokemonApi()
             const pokemonListDB = await firebase.getFromDB(userId)
             setPokemonList(pokemonListDB)
         }

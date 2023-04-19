@@ -1,36 +1,43 @@
 import * as React from 'react'
-import {FavoritesPokemonServices} from "../../../domain/services/FavoritesPokemonServices/FavoritesPokemon.services";
+import {FavoritesPokemonServices} from "../../../domain/services/FavoritesPokemonServices/LocalStorage/FavoritesPokemon.services";
 import {Pokemon} from "../../../domain/models/Pokemon";
 import {useEffect, useState} from "react";
-import {FavoritePokemon} from "../../api/Firebase/FavoritePokemon";
+import {FavoriteServices} from "../../../domain/services/FavoritesPokemonServices/Firebase/Favorite.services";
 
 export function FavoriteButton (props: { pokemon: Pokemon, userId: any}): JSX.Element{
 
-    const FIREBASE = new FavoritePokemon()
+    const firebaseFavoritesPokemon = new FavoriteServices()
 
     const { pokemon, userId } = props
 
     const [textButton, setTextButton] = useState("")
     const [colorButton, setColorButton] = useState("")
 
+    function setDeleteFromFavorites(){
+        setTextButton("Eliminar de favoritos")
+        setColorButton("red")
+    }
+
+    function setAddToFavorites(){
+        setTextButton("Añadir a favoritos")
+        setColorButton("green")
+    }
+
     function changeButtonProperties(){
-        if(FavoritesPokemonServices.findIndexPokemonInFavoriteList(FavoritesPokemonServices.getFavoritesPokemon(),pokemon) != -1){
-            setTextButton("Eliminar de favoritos")
-            setColorButton("red")
-        }
-        else{
-            setTextButton("Añadir a favoritos")
-            setColorButton("green")
-        }
+        textButton == "Añadir a favoritos" ? setDeleteFromFavorites() : setAddToFavorites()
+    }
+
+    async function setInitialButtonProperties(){
+        const indexPokemon = firebaseFavoritesPokemon.findIndexPokemonInFavoriteList(await firebaseFavoritesPokemon.getFavorites(userId), pokemon)
+        indexPokemon != -1 ? setDeleteFromFavorites() : setAddToFavorites()
     }
 
     useEffect(() => {
-        changeButtonProperties()
+        setInitialButtonProperties().then(r => {})
     }, [])
 
-    function handleClick() {
-        FIREBASE.addToDB(userId, pokemon).then(r => {})
-        FavoritesPokemonServices.setFavoritesPokemon(pokemon)
+    async function handleClick() {
+        await firebaseFavoritesPokemon.setFavoritesPokemon(userId, pokemon)
         changeButtonProperties()
     }
 

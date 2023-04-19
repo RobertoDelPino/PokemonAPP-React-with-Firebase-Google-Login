@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import {PokemonPage} from "./components/PokemonPage/PokemonPage";
-import {Login} from "./components/Login/Login";
+import {Login} from "./components/LoginPage/Login";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "./api/Firebase/Login.api";
 import {FavoritePage} from "./components/FavoritePage/FavoritePage";
@@ -24,10 +24,10 @@ export function App() {
                         <FavoritePage userId={user?.uid}/>
                     </ProtectedRoute>
                 }/>
-                <Route path="/Login" element={
+                <Route path="/LoginPage" element={
 
                     <ProtectedRoute user={user}>
-                        <Login user={user} />
+                        <LoginPage user={user} />
                     </ProtectedRoute>
                 }/>*/}
                 <Route element={ <ProtectedRoute user={user}/>}>

@@ -9,7 +9,7 @@ describe("FavoriteButton", () => {
     it('has the default add to favorites text', async function () {
         const pokemon = new Pokemon(1, "algo", 1, 1, "algo" )
         render(
-            <FavoriteButton pokemon={pokemon}/>
+            <FavoriteButton pokemon={pokemon} userId={123123}/>
         )
 
         const favoriteButton = await screen.getByRole("button")
@@ -23,7 +23,7 @@ describe("FavoriteButton", () => {
         const user = userEvent.setup()
         const pokemon = new Pokemon(1, "algo", 1, 1, "algo" )
         render(
-            <FavoriteButton pokemon={pokemon}/>
+            <FavoriteButton pokemon={pokemon} userId={123123}/>
         )
 
         const favoriteButton = await screen.getByRole("button")
