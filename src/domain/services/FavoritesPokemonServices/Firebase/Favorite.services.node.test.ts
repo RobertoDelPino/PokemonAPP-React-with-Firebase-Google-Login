@@ -101,5 +101,18 @@ describe("getFavorites should", () => {
 
         expect(favorites.length).toBe(0)
     });
+
+    it('return non empty list when there are pokemons in the database', async function () {
+        const userId = "irrelevant"
+        const pokemon = new Pokemon(2, "", 1, 1, "")
+
+        const favoriteService = new FavoriteServices()
+        favoriteService.FAVORITE_POKEMON_API.getFromDB = jest.fn().mockReturnValue([pokemon, pokemon])
+
+
+        const favorites = await favoriteService.getFavorites(userId)
+
+        expect(favorites.length).not.toBe(0)
+    });
 })
 
