@@ -1,10 +1,16 @@
-import {Pokemon} from "../../../domain/models/Pokemon";
-import {FavoritesPokemonDTO} from "../../DTO/FavoritesPokemonDTO";
+import {Pokemon} from "../../models/Pokemon";
+import {FavoritesPokemonDTO} from "../../../infrastructure/DTO/FavoritesPokemonDTO";
+import {LocalStorage} from "../../../infrastructure/storage/localStorage/LocalStorage";
 
 export const FavoritesPokemonServices = {
-    
+
+    ls: new LocalStorage(),
+
     getFavoritesPokemon: (): Pokemon[] => {
-        const data: FavoritesPokemonDTO[] = JSON.parse(localStorage.getItem("favorites") || "[]")
+        // const data: FavoritesPokemonDTO[] = JSON.parse(localStorage.getItem("favorites") || "[]")
+
+        const data: FavoritesPokemonDTO[] = FavoritesPokemonServices.ls.get<FavoritesPokemonDTO[]>("favorites")
+
         if(data.length != 0){
             return data.map(({id, name, urlImage, height, weight}) => new Pokemon(Number(id), name, Number(height), Number(weight), urlImage))
         }
