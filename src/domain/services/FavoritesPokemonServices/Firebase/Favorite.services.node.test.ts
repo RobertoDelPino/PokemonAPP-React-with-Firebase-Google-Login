@@ -7,15 +7,16 @@ import { FavoriteServices } from "./Favorite.services";
 
 describe("updateFavoriteList() should", () => {
 
+    const userId = "irrelevant"
+    const pokemon = new Pokemon(1, "", 1, 1, "")
+    let favoriteService = new FavoriteServices();
+
     afterEach(() => {
         jest.restoreAllMocks()
+        favoriteService = new FavoriteServices()
     })
 
     it('call deleteFrom() when pokemon is in the database', async function () {
-        const userId = "irrelevant"
-        const pokemon = new Pokemon(1, "", 1, 1, "")
-
-        const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
         favoriteService.existPokemon = jest.fn().mockReturnValue(1)
         favoriteService.deleteFrom = jest.fn()
@@ -26,12 +27,8 @@ describe("updateFavoriteList() should", () => {
     });
 
     it('call addTo() when pokemon is not in the database', async function () {
-        const userId = "irrelevant"
-        const pokemon = new Pokemon(1, "", 1, 1, "")
-
-        const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
-        favoriteService.existPokemon = jest.fn().mockReturnValue(-1)
+        favoriteService.existPokemon = jest.fn().mockReturnValue(false)
         favoriteService.addTo = jest.fn()
 
         await favoriteService.updateFavoriteList(userId, pokemon)
@@ -40,10 +37,6 @@ describe("updateFavoriteList() should", () => {
     });
 
     it('call addTo() when favorite list is empty', async function () {
-        const userId = "irrelevant"
-        const pokemon = new Pokemon(1, "", 1, 1, "")
-
-        const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([])
         favoriteService.addTo = jest.fn()
 
@@ -55,46 +48,44 @@ describe("updateFavoriteList() should", () => {
 
 describe("findIndexPokemonInFavoriteList should", () => {
 
+    let userId = "irrelevant";
+    let pokemon: Pokemon = new Pokemon(2, "", 1, 1, "")
+    let favoriteService = new FavoriteServices();
+
     afterEach(() => {
         jest.restoreAllMocks()
+        favoriteService = new FavoriteServices()
     })
 
     it('return -1 when pokemon not in the list', async function () {
-        const userId = "irrelevant"
-        const pokemon = new Pokemon(2, "", 1, 1, "")
-
-        const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([])
 
-        const index = favoriteService.existPokemon(await favoriteService.getFavorites(userId), pokemon)
+        const pokemonExist = favoriteService.existPokemon(await favoriteService.getFavorites(userId), pokemon)
 
-        expect(index).toBe(-1)
+        expect(pokemonExist).toBe(false)
     });
 
     it('not return -1 when pokemon is in the database', async function () {
-        const userId = "irrelevant"
-        const pokemon = new Pokemon(2, "", 1, 1, "")
-
-        const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
 
-        const index = favoriteService.existPokemon(await favoriteService.getFavorites(userId), pokemon)
+        const pokemonExist = favoriteService.existPokemon(await favoriteService.getFavorites(userId), pokemon)
 
-        expect(index).not.toBe(-1)
+        expect(pokemonExist).not.toBe(false)
     });
 
 })
 
 describe("getFavorites should", () => {
 
+    let userId = "irrelevant";
+    let favoriteService = new FavoriteServices();
+
     afterEach(() => {
         jest.restoreAllMocks()
+        favoriteService = new FavoriteServices()
     })
 
     it('return empty list when no pokemon in the database', async function () {
-        const userId = "irrelevant"
-
-        const favoriteService = new FavoriteServices()
         favoriteService.api.getFromDB = jest.fn().mockReturnValue([])
 
         const favorites = await favoriteService.getFavorites(userId)
@@ -103,13 +94,9 @@ describe("getFavorites should", () => {
     });
 
     it('return non empty list when there are pokemons in the database', async function () {
-        const userId = "irrelevant"
         const pokemon = new Pokemon(2, "", 1, 1, "")
 
-        const favoriteService = new FavoriteServices()
         favoriteService.api.getFromDB = jest.fn().mockReturnValue([pokemon, pokemon])
-
-
         const favorites = await favoriteService.getFavorites(userId)
 
         expect(favorites.length).not.toBe(0)
