@@ -5,7 +5,7 @@
 import {Pokemon} from "../../../models/Pokemon";
 import { FavoriteServices } from "./Favorite.services";
 
-describe("SetFavoritesPokemon should", () => {
+describe("updateFavoriteList() should", () => {
 
     afterEach(() => {
         jest.restoreAllMocks()
@@ -17,7 +17,7 @@ describe("SetFavoritesPokemon should", () => {
 
         const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
-        favoriteService.findIndexPokemonInFavoriteList = jest.fn().mockReturnValue(1)
+        favoriteService.findIndexPokemon = jest.fn().mockReturnValue(1)
         favoriteService.deleteFrom = jest.fn()
 
         await favoriteService.updateFavoriteList(userId, pokemon)
@@ -31,7 +31,7 @@ describe("SetFavoritesPokemon should", () => {
 
         const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
-        favoriteService.findIndexPokemonInFavoriteList = jest.fn().mockReturnValue(-1)
+        favoriteService.findIndexPokemon = jest.fn().mockReturnValue(-1)
         favoriteService.addTo = jest.fn()
 
         await favoriteService.updateFavoriteList(userId, pokemon)
@@ -66,7 +66,7 @@ describe("findIndexPokemonInFavoriteList should", () => {
         const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([])
 
-        const index = favoriteService.findIndexPokemonInFavoriteList(await favoriteService.getFavorites(userId), pokemon)
+        const index = favoriteService.findIndexPokemon(await favoriteService.getFavorites(userId), pokemon)
 
         expect(index).toBe(-1)
     });
@@ -78,7 +78,7 @@ describe("findIndexPokemonInFavoriteList should", () => {
         const favoriteService = new FavoriteServices()
         favoriteService.getFavorites = jest.fn().mockReturnValue([pokemon])
 
-        const index = favoriteService.findIndexPokemonInFavoriteList(await favoriteService.getFavorites(userId), pokemon)
+        const index = favoriteService.findIndexPokemon(await favoriteService.getFavorites(userId), pokemon)
 
         expect(index).not.toBe(-1)
     });
@@ -95,7 +95,7 @@ describe("getFavorites should", () => {
         const userId = "irrelevant"
 
         const favoriteService = new FavoriteServices()
-        favoriteService.FAVORITE_POKEMON_API.getFromDB = jest.fn().mockReturnValue([])
+        favoriteService.api.getFromDB = jest.fn().mockReturnValue([])
 
         const favorites = await favoriteService.getFavorites(userId)
 
@@ -107,7 +107,7 @@ describe("getFavorites should", () => {
         const pokemon = new Pokemon(2, "", 1, 1, "")
 
         const favoriteService = new FavoriteServices()
-        favoriteService.FAVORITE_POKEMON_API.getFromDB = jest.fn().mockReturnValue([pokemon, pokemon])
+        favoriteService.api.getFromDB = jest.fn().mockReturnValue([pokemon, pokemon])
 
 
         const favorites = await favoriteService.getFavorites(userId)
