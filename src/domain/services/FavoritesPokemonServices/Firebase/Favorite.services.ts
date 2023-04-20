@@ -19,15 +19,16 @@ export class FavoriteServices {
             this.addTo(userId, pokemon)
         }
 
-        let indexPokemon = this.findIndexPokemon(favoritePokemonList, pokemon)
-         indexPokemon != -1 ? this.deleteFrom(userId, favoritePokemonList, indexPokemon) : this.addTo(userId, pokemon)
+        let pokemonExist = this.existPokemon(favoritePokemonList, pokemon)
+         pokemonExist ? this.deleteFrom(userId, favoritePokemonList, pokemon.id) : this.addTo(userId, pokemon)
     }
 
-    findIndexPokemon(favoritePokemonList: Pokemon[], pokemon: Pokemon): number{
-        return favoritePokemonList.findIndex(({id}) => pokemon.id == id);
+    existPokemon(favoritePokemonList: Pokemon[], pokemon: Pokemon): boolean{
+        return favoritePokemonList.some(({id}) => pokemon.id == id);
     }
 
-     deleteFrom(userId: string, favoritePokemonList: Pokemon[], indexPokemon: number) {
+     deleteFrom(userId: string, favoritePokemonList: Pokemon[], pokemonId: number) {
+        const indexPokemon = favoritePokemonList.findIndex(({id}) => pokemonId == id)
         favoritePokemonList.splice(indexPokemon, 1)
         this.api.updateDB(userId, favoritePokemonList).then(r => {})
     }
