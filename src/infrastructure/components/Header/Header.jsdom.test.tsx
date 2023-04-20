@@ -31,4 +31,16 @@ describe("Header should", () => {
         expect(header).toBeInTheDocument()
         expect(button).toBeInTheDocument()
     });
+
+    it('has "Log Out" text button if userId is null', async function () {
+        render(
+            <Header userId={1231231}></Header>
+        )
+
+        const header = await screen.getByRole("banner")
+        const button = await screen.getByText("Log Out")
+        console.log(prettyDOM(header))
+        expect(header).toBeInTheDocument()
+        expect(button).toBeInTheDocument()
+    });
 })
