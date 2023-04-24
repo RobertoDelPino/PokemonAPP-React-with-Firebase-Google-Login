@@ -3,6 +3,7 @@ import * as firebase from "../../api/Firebase/Login.api"
 import {useEffect, useState} from "react";
 import {Pokemon} from "../../../domain/models/Pokemon";
 import {FavoritePokemonApi} from "../../api/Firebase/FavoritePokemon.api";
+import {FavoriteButton} from "../../components/FavoriteButton/FavoriteButton";
 
 export function FavoritePage ({userId}): JSX.Element{
 
@@ -18,6 +19,10 @@ export function FavoritePage ({userId}): JSX.Element{
         fetchData()
     },[])
 
+    if(pokemonList.length == 0){
+        return ( <h2 style={{textAlign: "center"}}>No tienes ningún pokemon agregado a favoritos</h2> )
+    }
+
     return (
         <>
             <section className="contenedor">
@@ -28,6 +33,7 @@ export function FavoritePage ({userId}): JSX.Element{
                             <h2>{pokemon.name}</h2>
                             <p>Peso: {pokemon.weight}</p>
                             <p>Altura: {pokemon.height}</p>
+                            <FavoriteButton pokemon={pokemon} userId={userId}></FavoriteButton>
                         </article>
                     ))
                 }

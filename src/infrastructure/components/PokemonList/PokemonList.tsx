@@ -66,7 +66,11 @@ export const PokemonList: ({userId}: { userId: any }) => (JSX.Element) = ({userI
     }, [offset])
 
     if(isLoading){
-        return <p>Cargando...</p>
+        return <h2 style={{textAlign: "center"}}>Cargando...</h2>
+    }
+
+    if(pokemonList.length == 0){
+        return <h2 style={{textAlign: "center"}}>No se han encontrado pokemons</h2>
     }
 
     return (
