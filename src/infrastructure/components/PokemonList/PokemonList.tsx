@@ -15,31 +15,34 @@ export const PokemonList: ({userId}: { userId: any }) => (JSX.Element) = ({userI
     const [pokemonList, setPokemonList] = React.useState<Pokemon[]>([])
     const [offset, setOffset] = useState(0)
     const [hasMore, setHasMore] = useState(true)
-    const [maximun, setMaximun] = useState(0);
+    const [maximum, setMaximum] = useState(1000);
 
     const query = useQuery();
     const search = query.get("search")
 
     const findPokemonByName = async () => {
-        const data: Pokemon[] = await PokemonService.getPokemonListByName(search);
+        const data: Pokemon[] = await PokemonService.getListByName(search);
         setPokemonList(data)
         setIsLoading(false)
     }
 
     const fetchPokemonList = async (pokemonList: Pokemon[]) => {
-        const data: Pokemon[] = await PokemonService.getPokemonList(offset);
+        const data: Pokemon[] = await PokemonService.getList(offset);
         setPokemonList( [...pokemonList, ...data])
         setIsLoading(false)
-        setHasMore(offset < maximun)
+        setHasMore(offset < maximum)
     }
 
-    const setMaximunCount = async () => {
-        const data = await PokemonService.getPokemonCount()
-        setMaximun(Number(data.count))
+    const setMaximumCount = async () => {
+        const data = await PokemonService.getListCount()
+        setMaximum(Number(data.count))
     }
 
     useEffect(() => {
-        setMaximunCount()
+        const algo = async () => {
+            await setMaximumCount()
+        }
+        algo().then(r => {})
     }, [])
 
     useEffect(() => {
@@ -47,16 +50,19 @@ export const PokemonList: ({userId}: { userId: any }) => (JSX.Element) = ({userI
         if(search == null || search == ""){
             setHasMore(true)
             setOffset(0)
-            fetchPokemonList([])
+            fetchPokemonList([]).then(r => {})
         }
         else{
             setHasMore(false)
-            findPokemonByName()
+            findPokemonByName().then(r => {})
         }
     }, [search])
 
     useEffect(() => {
-        fetchPokemonList(pokemonList)
+        const algo = async () => {
+            await fetchPokemonList(pokemonList)
+        }
+        algo().then(r => {})
     }, [offset])
 
     if(isLoading){

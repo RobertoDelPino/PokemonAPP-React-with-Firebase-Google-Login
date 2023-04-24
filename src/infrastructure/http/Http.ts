@@ -1,4 +1,3 @@
-import {Pokemon} from "../../domain/models/Pokemon";
 
 export class Http{
     baseUrl: string;
@@ -17,5 +16,3 @@ export class Http{
         }
     }
 }
-
-

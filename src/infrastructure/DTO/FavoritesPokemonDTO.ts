@@ -1,4 +1,3 @@
-import {Pokemon} from "../../domain/models/Pokemon";
 
 export interface FavoritesPokemonDTO {
     id: number;

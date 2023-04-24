@@ -20,7 +20,6 @@ export function FavoritePage ({userId}): JSX.Element{
 
     return (
         <>
-            <button onClick={firebase.logout}>Log Out</button>
             <section className="contenedor">
                 {
                     pokemonList.map((pokemon: Pokemon) => (

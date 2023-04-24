@@ -13,39 +13,38 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const googleProvider = new GoogleAuthProvider();
-googleProvider.setCustomParameters({
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+const googleProvider = new GoogleAuthProvider().setCustomParameters({
     prompt: 'select_account'
 });
-const signInWithGoogle = async () => {
-    try {
-        const res = await signInWithPopup(auth, googleProvider);
-        const user = res.user;
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const docs = await getDocs(q);
-        // Si hace la peticion y devuelve algo, lo guarda en la base de datos
-        if (docs.docs.length === 0) {
-            await addDoc(collection(db, "users"), {
-                uid: user.uid,
-                name: user.displayName,
-                authProvider: "google",
-                email: user.email,
-            });
-        }
-    } catch (err: any) {
-        console.error(err);
-        alert(err.message);
-    }
-};
 
-const logout = async () => {
-    signOut(auth)
-};
-export {
-    auth,
-    db,
-    signInWithGoogle,
-    logout,
-};
+export class LoginApi {
+
+    constructor() {
+    }
+
+    async signInWithGoogle() {
+        try {
+            const res = await signInWithPopup(auth, googleProvider);
+            const user = res.user;
+            const q = query(collection(db, "users"), where("uid", "==", user.uid));
+            const docs = await getDocs(q);
+            // Si hace la peticion y devuelve algo, lo guarda en la base de datos
+            if (docs.docs.length === 0) {
+                await addDoc(collection(db, "users"), {
+                    uid: user.uid,
+                    name: user.displayName,
+                    authProvider: "google",
+                    email: user.email,
+                });
+            }
+        } catch (err: any) {
+            console.error(err);
+        }
+    };
+
+    logout() {
+        signOut(auth).then(r => {})
+    };
+}

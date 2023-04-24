@@ -1,0 +1,47 @@
+.header{
+    width: 90%;
+    height: 70px;
+    position: relative;
+    background-color: rgb(201, 201, 201);
+    border-radius: 2.5em;
+    margin: auto auto 25px;
+}
+
+.button{
+    padding: .8em;
+    font-weight: 700;
+    border: .1em solid transparent;
+    border-radius: .5em;
+    cursor: pointer;
+    transition: .5s all;
+}
+
+.button:hover{
+    border-radius: 0;
+}
+
+.middle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+    background-color: cadetblue;
+    color: white;
+}
+
+.middle:hover{
+    color: black;
+}
+
+.right{
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(244, 67, 54, 1);
+    color: white;
+}
+
+.right:hover{
+    color: black;
+}

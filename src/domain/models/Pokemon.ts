@@ -5,7 +5,6 @@ export class Pokemon{
         this.height = height
         this.weight = weight
         this.urlImage = urlImage
-
     }
 
     id: number

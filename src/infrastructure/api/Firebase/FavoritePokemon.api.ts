@@ -1,4 +1,4 @@
-import {addDoc, collection, getDoc, doc, updateDoc, setDoc, arrayUnion} from "firebase/firestore";
+import {getDoc, doc, updateDoc, setDoc, arrayUnion} from "firebase/firestore";
 import {db} from "./Login.api";
 import {Pokemon} from "../../../domain/models/Pokemon";
 

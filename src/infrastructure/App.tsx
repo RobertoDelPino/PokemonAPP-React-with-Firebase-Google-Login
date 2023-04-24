@@ -1,18 +1,22 @@
 import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
-import {PokemonPage} from "./components/PokemonPage/PokemonPage";
-import {Login} from "./components/LoginPage/Login";
+import {BrowserRouter as Switch, Router, Routes, Route, useNavigate, Navigate, BrowserRouter} from 'react-router-dom';
+import {PokemonPage} from "./pages/PokemonPage/PokemonPage";
+import {Login} from "./pages/LoginPage/Login";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth} from "./api/Firebase/Login.api";
-import {FavoritePage} from "./components/FavoritePage/FavoritePage";
+import {LoginApi, auth} from "./api/Firebase/Login.api";
+import {FavoritePage} from "./pages/FavoritePage/FavoritePage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import {Header} from "./components/Header/Header";
 
 export function App() {
-    const [user, loading, error] = useAuthState(auth);
+    const loginAPI = new LoginApi()
+    const [user, loading, error] = useAuthState(auth)
 
   return (
     <div className="App">
-        <Router>
+        <BrowserRouter>
+
+            <Header userId={user?.uid} />
             <Routes>
                 {/*<Route path="/Pokemon/" element={
                     <ProtectedRoute user={user}>
@@ -36,9 +40,12 @@ export function App() {
                 </Route>
 
                 <Route path="/Login" element={<Login user={user} />}/>
-
+                {/* Forma de obligar a que si se encuentra en una ruta que no esté anteriormente
+                    definida. Se redirija a otro lugar
+                 */}
+                <Route path='*' element={<Navigate to='/pokemon' replace />} />
             </Routes>
-        </Router>
+        </BrowserRouter>
 
     </div>
   )

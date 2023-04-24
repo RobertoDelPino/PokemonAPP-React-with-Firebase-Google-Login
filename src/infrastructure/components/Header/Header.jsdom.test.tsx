@@ -1,6 +1,8 @@
 import {Header} from "./Header"
 import '@testing-library/jest-dom'
 import {render, screen, prettyDOM} from "@testing-library/react";
+import {LoginApi, auth} from "../../api/Firebase/Login.api"
+import userEvent from "@testing-library/user-event";
 
 /*
 *
@@ -10,6 +12,7 @@ import {render, screen, prettyDOM} from "@testing-library/react";
 * */
 
 describe("Header should", () => {
+
     it('appear in the document', async function () {
         render(
             <Header userId={null}></Header>
