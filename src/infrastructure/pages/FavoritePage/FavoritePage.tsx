@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as firebase from "../../api/Firebase/Login.api"
 import {useEffect, useState} from "react";
 import {Pokemon} from "../../../domain/models/Pokemon";
 import {FavoritePokemonApi} from "../../api/Firebase/FavoritePokemon.api";
@@ -36,7 +35,7 @@ export function FavoritePage (): JSX.Element{
                 {
                     pokemonList.map((pokemon: Pokemon) => (
                         <article key={pokemon.id}>
-                            <img src={pokemon.urlImage} width={100}/>
+                            <img alt={""} src={pokemon.urlImage} width={100}/>
                             <h2>{pokemon.name}</h2>
                             <p>Peso: {pokemon.weight}</p>
                             <p>Altura: {pokemon.height}</p>
