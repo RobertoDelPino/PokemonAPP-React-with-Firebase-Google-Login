@@ -4,8 +4,15 @@ import {useEffect, useState} from "react";
 import {Pokemon} from "../../../domain/models/Pokemon";
 import {FavoritePokemonApi} from "../../api/Firebase/FavoritePokemon.api";
 import {FavoriteButton} from "../../components/FavoriteButton/FavoriteButton";
+import {useUser} from "../../hooks/useUser";
 
-export function FavoritePage ({userId}): JSX.Element{
+export function FavoritePage (): JSX.Element{
+
+    const userId = useUser()
+
+    if(!userId){
+        return <></>
+    }
 
     const [pokemonList, setPokemonList] = useState<Pokemon[]>([])
 

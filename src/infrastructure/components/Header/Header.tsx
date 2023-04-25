@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import { LoginApi } from "../../api/Firebase/Login.api";
 import {useLocation, useNavigate} from "react-router-dom";
 import styles from "./Header.module.css"
+import {useUser} from "../../hooks/useUser";
 
-export function Header({userId}) {
+export function Header() {
+
+    const userId = useUser()
 
     const [path, setPath] = useState("")
     const [textButton, setTextButton ] = useState("")
